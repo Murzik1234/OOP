@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="382.0" style="-fx-background-color: #006c84;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.example.controllers.ByController">
+    <children>
+        <AnchorPane layoutY="34.0" prefHeight="245.0" prefWidth="381.0" style="-fx-background-color: #6EB5C0;">
+         <children>
+            <TextField fx:id="nameField" layoutX="22.0" layoutY="22.0" promptText="Название" />
+            <TextField fx:id="caloriesField" layoutX="22.0" layoutY="62.0" promptText="кКал" />
+            <TextField fx:id="weighField" layoutX="199.0" layoutY="22.0" promptText="Масса" />
+            <TextField fx:id="timeField" layoutX="22.0" layoutY="104.0" promptText="Время" />
+            <TextField fx:id="proteinField" layoutX="199.0" layoutY="104.0" promptText="Содержание белка" />
+                <Button fx:id="addButton" layoutX="116.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#addClickButton" prefHeight="34.0" prefWidth="149.0" style="-fx-background-color: #f39c63;" text="Сохранить" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri" size="19.0" />
+                    </font>
+                </Button>
+            <ComboBox fx:id="processBox" layoutX="199.0" layoutY="62.0" prefHeight="25.0" prefWidth="149.0" promptText="Способ приготовления" style="-fx-background-color: #FFCCCC;" />
+            <ComboBox fx:id="typeBox" layoutX="22.0" layoutY="141.0" prefWidth="150.0" promptText="Тип мяса" style="-fx-background-color:#FFCCCC;" />
+            <ComboBox fx:id="categoryBox" layoutX="199.0" layoutY="141.0" prefWidth="150.0" promptText="Категория" style="-fx-background-color: #FFCCCC;" />
+         </children>
+        </AnchorPane>
+        <Label layoutX="259.0" layoutY="7.0" text="CookingTime" textFill="#6eb5c0d6">
+            <font>
+                <Font name="Calibri" size="23.0" />
+            </font>
+        </Label>
+          <Label layoutX="9.0" layoutY="-170.0" text="Добро пожаловать в CookingTime!" textFill="#838181">
+              <font>
+                  <Font name="Calibri" size="22.0" />
+              </font>
+          </Label>
+    </children>
+</AnchorPane>
