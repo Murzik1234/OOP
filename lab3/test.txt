@@ -1,0 +1,1 @@
+Суп:[{com.example.example.products.SimpleProduct,Соль,12,12,Варить,6}]
