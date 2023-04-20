@@ -48,7 +48,7 @@ public class MyJsonSerialize implements MySerializer {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath))) {
             bufferedWriter.write(gson.toJson(dishSerializes, type));
         } catch (IOException e) {
-            createAlert(Alert.AlertType.ERROR, "File error", "Error while JSON file serialization!", "Check file info");
+            createAlert(Alert.AlertType.ERROR, "Error", "Error JSON serialization!", "Check file info");
         }
     }
 
@@ -60,7 +60,7 @@ public class MyJsonSerialize implements MySerializer {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             json = bufferedReader.readLine();
         } catch (IOException e) {
-            createAlert(Alert.AlertType.ERROR, "File error", "Error while JSON file deserialization!", "Check file info");
+            createAlert(Alert.AlertType.ERROR, "File error", "Error JSON serialization!", "Check file info");
         }
         ArrayList<DishSerialize> dishes = gson.fromJson(json, type);
         ArrayList<Dish> dishR = new ArrayList<>();

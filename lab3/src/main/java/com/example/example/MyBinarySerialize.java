@@ -50,7 +50,7 @@ public class MyBinarySerialize implements MySerializer{
             }
         } catch (ClassNotFoundException e) {
             dishR.clear();
-            createAlert(Alert.AlertType.ERROR, "File error", "Error while binary file serialization!", "Check file info");
+            createAlert(Alert.AlertType.ERROR, "Error", "Error BINARY file serialization!", "Check file info");
         }
         return dishR;
     }

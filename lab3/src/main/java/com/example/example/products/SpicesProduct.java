@@ -33,13 +33,13 @@ public class SpicesProduct extends BaseProduct implements Serializable {
     public SpicesProduct(String prop) {
         StringSplit stringSplit = new StringSplit();
         String[] properties = stringSplit.split(prop, ',');
-        this.setName(properties[1]);
+        this.setName(properties[1].replace("\\", ""));
         this.setWeight(Integer.parseInt(properties[2]));
         this.setCalories(Integer.parseInt(properties[3]));
         this.setProcessType(properties[4]);
         this.setTime(Integer.parseInt(properties[5]));
         this.sharpness = properties[6];
-        this.country = properties[7];
+        this.country = properties[7].replace("\\", "");
     }
     @Override
     public StringProperty getMoreProductInfo() {

@@ -3,14 +3,19 @@ package com.example.example;
 import com.example.example.factories.MilkProductFactory;
 import com.example.example.utils.ProductInterface;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SerializeFactory {
-    public static MySerializer getSerializer(String serType){
-        MySerializer mySerializer = null;
-        switch (serType){
-            case "json" : return mySerializer = new MyJsonSerialize();
-            case "txt"  : return mySerializer = new MyTxtSerialize();
-            case "bin" : return mySerializer = new MyBinarySerialize();
-        }
-        return  mySerializer;
+    private static Map<String, MySerializer> map = new HashMap<String, MySerializer>();
+
+    public static void initSerializer(){
+        map.put("bin", new MyBinarySerialize());
+        map.put("json", new MyJsonSerialize());
+        map.put("txt", new MyTxtSerialize());
+    }
+
+    public static  MySerializer getSerializer(String serType){
+        return  map.get(serType);
     }
 }

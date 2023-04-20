@@ -1,1 +1,1 @@
-Суп:[{com.example.example.products.SimpleProduct,Соль,12,12,Варить,6}]
+С\,\,\у\{\}п:[{com.example.example.products.SimpleProduct,\:\,\,С\:о\,\{ль\}\},12,12,Варить,6}]

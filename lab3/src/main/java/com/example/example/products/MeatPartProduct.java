@@ -24,7 +24,7 @@ public class MeatPartProduct extends MeatProduct implements Serializable {
     public MeatPartProduct(String prop) {
         StringSplit stringSplit = new StringSplit();
         String[] properties = stringSplit.split(prop, ',');
-        this.setName(properties[1]);
+        this.setName(properties[1].replace("\\", ""));
         this.setWeight(Integer.parseInt(properties[2]));
         this.setCalories(Integer.parseInt(properties[3]));
         this.setProcessType(properties[4]);

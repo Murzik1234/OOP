@@ -20,7 +20,7 @@ public class Validator {
 
     public void validateName(TextField txtField, BooleanProperty isFormUncorrect) {
         txtField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.isEmpty() || newValue.matches("^[а-яА-Яa-zA-Z]+$" )== false) {
+            if (newValue.isEmpty()) {
                 txtField.setStyle("-fx-background-color: #FFCCCC;");
                 isFormUncorrect.set(false);
             } else {

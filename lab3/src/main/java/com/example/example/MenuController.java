@@ -89,10 +89,14 @@ public class MenuController {
                 new FileChooser.ExtensionFilter("JSON Files", "*.json"));
         File file = fileChooser.showOpenDialog((Stage) downloadButton.getScene().getWindow());
         if (file != null) {
-            String extension = file.getName().substring(file.getName().lastIndexOf(".") + 1);
-            MySerializer mySerializer = SerializeFactory.getSerializer(extension);
-            dishData.getDishesList().setAll((ArrayList<Dish>)mySerializer.deserialize(file.getPath()));
-            setDishData(dishData);
+            if(file.length() != 0) {
+                String extension = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+                MySerializer mySerializer = SerializeFactory.getSerializer(extension);
+                dishData.getDishesList().setAll((ArrayList<Dish>) mySerializer.deserialize(file.getPath()));
+                setDishData(dishData);
+            }else{
+                createAlert(Alert.AlertType.ERROR, "Error", "File is empty!", "Choose another file!");
+            }
         }
     }
     public static void createAlert(final Alert.AlertType type, final String title, final String header, final String content) {
@@ -104,7 +108,7 @@ public class MenuController {
     }
 
     @FXML
-    private void downloadButtonClick() throws IOException {
+    private void downloadButtonClick() throws IOException, IllegalAccessException {
         if (!menuTable.getItems().isEmpty()) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Выберите файл");
@@ -133,7 +137,6 @@ public class MenuController {
     @FXML
     private void editClickButton() {
         if (menuTable.getSelectionModel().getSelectedItem() != null) {
-            //((Stage)editDishes.getScene().getWindow()).hide();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("changeDish.fxml"));
             try {
@@ -155,11 +158,9 @@ public class MenuController {
             });
             stage.showAndWait();
             menuTable.getSelectionModel().clearSelection();
-            //((Stage)editDishes.getScene().getWindow()).show();
         } else {
             dishData.getDishesList().add(new Dish(""));
             FXMLLoader loader = new FXMLLoader();
-            //((Stage)editDishes.getScene().getWindow()).hide();
             loader.setLocation(getClass().getResource("changeDish.fxml"));
             try {
                 loader.load();
@@ -180,7 +181,6 @@ public class MenuController {
             });
             stage.showAndWait();
             menuTable.getSelectionModel().clearSelection();
-            //((Stage)editDishes.getScene().getWindow()).show();
         }
     }
 
@@ -215,13 +215,7 @@ public class MenuController {
                 disableIsSelected.set(true);
             }
         });
-//        BooleanProperty saveButtonDisable = new SimpleBooleanProperty(true);
-//        downloadButton.disableProperty().bind(saveButtonDisable);
-//        menuTable.getItems().addListener((ListChangeListener.Change<? extends Dish> c) -> {
-//            // устанавливаем доступность кнопки в зависимости от наличия элементов в таблице
-//            saveButtonDisable.set(menuTable.getItems().isEmpty());
-//        });
-
+        SerializeFactory.initSerializer();
 
     }
 

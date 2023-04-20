@@ -14,11 +14,20 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 public class MyTxtSerialize implements MySerializer {
+
+    public String escapeSpecialCharacters(String input) {
+        String[] specialCharacters = {":", ",", "{", "}"};
+        for (String specialChar : specialCharacters) {
+            input = input.replace(specialChar, "\\" + specialChar);
+        }
+        return input;
+    }
+
     @Override
     public void serialize(String filePath, ArrayList<Dish> dishes) throws IOException {
         FileWriter writer = new FileWriter(filePath);
         for (Dish dish : dishes) {
-            writer.write(dish.getName());
+            writer.write(escapeSpecialCharacters(dish.getName()));
             if (dish.getProductsList().size() != 0) {
                 writer.write(":[");
                 for (int i = 0; i < dish.getProductsList().size(); i++) {
@@ -30,7 +39,7 @@ public class MyTxtSerialize implements MySerializer {
                             for (Field field : parentFields) {
                                 field.setAccessible(true);
                                 try {
-                                    writer.write(","+field.get(dish.getProductsList().get(i)));
+                                    writer.write("," + escapeSpecialCharacters(field.get(dish.getProductsList().get(i)).toString()));
                                 } catch (IllegalAccessException e) {
                                 }
                             }
@@ -39,7 +48,7 @@ public class MyTxtSerialize implements MySerializer {
                         for (Field field : parentFields) {
                             field.setAccessible(true);
                             try {
-                                writer.write("," + field.get(dish.getProductsList().get(i)));
+                                writer.write("," + escapeSpecialCharacters(field.get(dish.getProductsList().get(i)).toString()));
                             } catch (IllegalAccessException e) {
                             }
                         }
@@ -47,7 +56,7 @@ public class MyTxtSerialize implements MySerializer {
                         for (Field field : fields) {
                             field.setAccessible(true);
                             try {
-                                writer.write("," + field.get(dish.getProductsList().get(i)));
+                                writer.write("," + escapeSpecialCharacters(field.get(dish.getProductsList().get(i)).toString()));
                             } catch (IllegalAccessException e) {
                             }
                         }
@@ -59,7 +68,8 @@ public class MyTxtSerialize implements MySerializer {
         }
         writer.close();
     }
-    public ArrayList<String> objects(String str){
+
+    public ArrayList<String> objects(String str) {
         ArrayList<String> objectsList = new ArrayList<>();
         String openBracket = "{";
         String closeBracket = "}";
@@ -67,10 +77,16 @@ public class MyTxtSerialize implements MySerializer {
         int endIndex = 0;
         while (true) {
             startIndex = str.indexOf(openBracket, endIndex);
+            while (startIndex > 0 && str.charAt(startIndex - 1) == '\\') {
+                startIndex = str.indexOf(openBracket, endIndex + 1);
+            }
             if (startIndex == -1) {
                 break;
             }
             endIndex = str.indexOf(closeBracket, startIndex);
+            while (endIndex > 0 && str.charAt(endIndex - 1) == '\\') {
+                endIndex = str.indexOf(closeBracket, endIndex + 1);
+            }
             if (endIndex == -1) {
                 break;
             }
@@ -79,30 +95,13 @@ public class MyTxtSerialize implements MySerializer {
         }
         return objectsList;
     }
+
     public static void createAlert(final Alert.AlertType type, final String title, final String header, final String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
-    }
-    public String[] createTokens(String line, char symbol){
-        List<String> tokens = new ArrayList<>();
-        StringBuilder currentToken = new StringBuilder();
-        for (int i = 0; i < line.length(); i++) {
-            char c = line.charAt(i);
-            if (c == symbol && currentToken.length() > 0) {
-                tokens.add(currentToken.toString());
-                currentToken = new StringBuilder();
-            } else {
-                currentToken.append(c);
-            }
-        }
-        if (currentToken.length() > 0) {
-            tokens.add(currentToken.toString());
-        }
-        String[] tokensArray = tokens.toArray(new String[0]);
-        return tokensArray;
     }
 
     @Override
@@ -114,7 +113,7 @@ public class MyTxtSerialize implements MySerializer {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] tokens = stringSplit.split(line, ':');
-                Dish dish = new Dish(tokens[0]);
+                Dish dish = new Dish(tokens[0].replace("\\", ""));
                 dishes.add(dish);
                 objectsList = objects(tokens[1]);
                 for (String obj : objectsList) {
@@ -128,7 +127,7 @@ public class MyTxtSerialize implements MySerializer {
             }
         } catch (IOException | NoSuchMethodException | ClassNotFoundException e) {
             dishes.clear();
-            createAlert(Alert.AlertType.ERROR, "File error", "Error while txt file serialization!", "Check file info");
+            createAlert(Alert.AlertType.ERROR, "Error", "Error TXT file serialization!", "Check file info");
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
