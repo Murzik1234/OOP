@@ -25,7 +25,7 @@ public class Pasta extends CerealsGrainsProduct implements Serializable {
     public Pasta(String prop) {
         StringSplit stringSplit = new StringSplit();
         String[] properties = stringSplit.split(prop, ',');
-        this.setName(properties[1].replace("\\", ""));
+        this.setName(stringSplit.removeSingleBackslashes(properties[1]));
         this.setWeight(Integer.parseInt(properties[2]));
         this.setCalories(Integer.parseInt(properties[3]));
         this.setProcessType(properties[4]);

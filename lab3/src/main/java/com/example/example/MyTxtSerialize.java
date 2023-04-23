@@ -16,11 +16,15 @@ import java.util.List;
 public class MyTxtSerialize implements MySerializer {
 
     public String escapeSpecialCharacters(String input) {
-        String[] specialCharacters = {":", ",", "{", "}"};
-        for (String specialChar : specialCharacters) {
-            input = input.replace(specialChar, "\\" + specialChar);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c == ':' || c == ',' || c == '{' || c == '}' || c == '\\') {
+                sb.append('\\');
+            }
+            sb.append(c);
         }
-        return input;
+        return sb.toString();
     }
 
     @Override
@@ -113,7 +117,7 @@ public class MyTxtSerialize implements MySerializer {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] tokens = stringSplit.split(line, ':');
-                Dish dish = new Dish(tokens[0].replace("\\", ""));
+                Dish dish = new Dish(stringSplit.removeSingleBackslashes(tokens[0]));
                 dishes.add(dish);
                 objectsList = objects(tokens[1]);
                 for (String obj : objectsList) {
