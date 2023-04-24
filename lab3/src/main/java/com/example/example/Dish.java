@@ -19,6 +19,10 @@ public class Dish implements Serializable {
     private String name;
     private ObservableList<BaseProduct> productsList = FXCollections.observableArrayList();
 
+    public Dish() {
+
+    }
+
     public ObservableList<BaseProduct> getProductsList() {
         return productsList;
     }

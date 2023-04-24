@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MeatPartProduct extends MeatProduct implements Serializable {
     private String bodyPart;
@@ -21,17 +22,15 @@ public class MeatPartProduct extends MeatProduct implements Serializable {
         super(name, weight, calories, processType, time, protein, meatType);
         this.bodyPart = bodyPart;
     }
-    public MeatPartProduct(String prop) {
-        StringSplit stringSplit = new StringSplit();
-        String[] properties = stringSplit.split(prop, ',');
-        this.setName(stringSplit.removeSingleBackslashes(properties[1]));
-        this.setWeight(Integer.parseInt(properties[2]));
-        this.setCalories(Integer.parseInt(properties[3]));
-        this.setProcessType(properties[4]);
-        this.setTime(Integer.parseInt(properties[5]));
-        this.setProtein(Integer.parseInt(properties[6]));
-        this.setMeatType(properties[7]);
-        this.bodyPart = properties[8];
+    public MeatPartProduct(ArrayList<String> properties) {
+        this.setName(properties.get(0));
+        this.setWeight(Integer.parseInt(properties.get(1)));
+        this.setCalories(Integer.parseInt(properties.get(2)));
+        this.setProcessType(properties.get(3));
+        this.setTime(Integer.parseInt(properties.get(4)));
+        this.setProtein(Integer.parseInt(properties.get(5)));
+        this.setMeatType(properties.get(6));
+        this.bodyPart = properties.get(7);
     }
     @Override
     public StringProperty getMoreProductInfo() {

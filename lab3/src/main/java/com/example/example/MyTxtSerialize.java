@@ -73,33 +73,6 @@ public class MyTxtSerialize implements MySerializer {
         writer.close();
     }
 
-    public ArrayList<String> objects(String str) {
-        ArrayList<String> objectsList = new ArrayList<>();
-        String openBracket = "{";
-        String closeBracket = "}";
-        int startIndex = 0;
-        int endIndex = 0;
-        while (true) {
-            startIndex = str.indexOf(openBracket, endIndex);
-            while (startIndex > 0 && str.charAt(startIndex - 1) == '\\') {
-                startIndex = str.indexOf(openBracket, endIndex + 1);
-            }
-            if (startIndex == -1) {
-                break;
-            }
-            endIndex = str.indexOf(closeBracket, startIndex);
-            while (endIndex > 0 && str.charAt(endIndex - 1) == '\\') {
-                endIndex = str.indexOf(closeBracket, endIndex + 1);
-            }
-            if (endIndex == -1) {
-                break;
-            }
-            String match = str.substring(startIndex + 1, endIndex);
-            objectsList.add(match);
-        }
-        return objectsList;
-    }
-
     public static void createAlert(final Alert.AlertType type, final String title, final String header, final String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -109,25 +82,14 @@ public class MyTxtSerialize implements MySerializer {
     }
 
     @Override
-    public Object deserialize(String filePath) throws IOException {
+    public Object deserialize(String filePath) throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         StringSplit stringSplit = new StringSplit();
         ArrayList<Dish> dishes = new ArrayList<>();
-        ArrayList<String> objectsList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] tokens = stringSplit.split(line, ':');
-                Dish dish = new Dish(stringSplit.removeSingleBackslashes(tokens[0]));
+                Dish dish = stringSplit.parse(line);
                 dishes.add(dish);
-                objectsList = objects(tokens[1]);
-                for (String obj : objectsList) {
-                    String[] properties = stringSplit.split(obj, ',');
-                    Class myClass = Class.forName(properties[0]);
-                    Constructor<?> cons = myClass.getDeclaredConstructor(String.class);
-                    System.out.println(cons);
-                    Object o = cons.newInstance(obj);
-                    dish.getProductsList().add((BaseProduct) o);
-                }
             }
         } catch (IOException | NoSuchMethodException | ClassNotFoundException e) {
             dishes.clear();

@@ -9,12 +9,13 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class SerializeTest extends junit.framework.TestCase {
 
     @Test
-    public void testTxtSerialize() throws IOException {
+    public void testTxtSerialize() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         ObservableList<Dish> mainDishesList = FXCollections.observableArrayList();
         ObservableList<Dish> dishesList = FXCollections.observableArrayList();
         ObservableList<BaseProduct> productsList = FXCollections.observableArrayList();

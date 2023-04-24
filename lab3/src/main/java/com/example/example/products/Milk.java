@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Milk extends MilkProduct implements Serializable {
     private String pasteurization;
@@ -21,17 +22,15 @@ public class Milk extends MilkProduct implements Serializable {
         super(name, weight, calories, processType, time, calcium, fatContent);
         this.pasteurization = pasteurization;
     }
-    public Milk(String prop) {
-        StringSplit stringSplit = new StringSplit();
-        String[] properties = stringSplit.split(prop, ',');
-        this.setName(stringSplit.removeSingleBackslashes(properties[1]));
-        this.setWeight(Integer.parseInt(properties[2]));
-        this.setCalories(Integer.parseInt(properties[3]));
-        this.setProcessType(properties[4]);
-        this.setTime(Integer.parseInt(properties[5]));
-        this.setCalcium(Integer.parseInt(properties[6]));
-        this.setFatContent(Integer.parseInt(properties[7]));
-        this.pasteurization = properties[8];
+    public Milk(ArrayList<String> properties) {
+        this.setName(properties.get(0));
+        this.setWeight(Integer.parseInt(properties.get(1)));
+        this.setCalories(Integer.parseInt(properties.get(2)));
+        this.setProcessType(properties.get(3));
+        this.setTime(Integer.parseInt(properties.get(4)));
+        this.setCalcium(Integer.parseInt(properties.get(5)));
+        this.setFatContent(Integer.parseInt(properties.get(6)));
+        this.pasteurization = properties.get(7);
     }
     @Override
     public StringProperty getMoreProductInfo() {

@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ByProduct extends MeatProduct implements Serializable {
     private String category;
@@ -21,17 +22,16 @@ public class ByProduct extends MeatProduct implements Serializable {
         super(name, weight, calories, processType, time, protein, meatType);
         this.category = category;
     }
-    public ByProduct(String prop) {
-        StringSplit stringSplit = new StringSplit();
-        String[] properties = stringSplit.split(prop, ',');
-        this.setName(stringSplit.removeSingleBackslashes(properties[1]));
-        this.setWeight(Integer.parseInt(properties[2]));
-        this.setCalories(Integer.parseInt(properties[3]));
-        this.setProcessType(properties[4]);
-        this.setTime(Integer.parseInt(properties[5]));
-        this.setProtein(Integer.parseInt(properties[6]));
-        this.setMeatType(properties[7]);
-        this.category = properties[8];
+    public ByProduct(ArrayList<String> properties) {
+
+        this.setName(properties.get(0));
+        this.setWeight(Integer.parseInt(properties.get(1)));
+        this.setCalories(Integer.parseInt(properties.get(2)));
+        this.setProcessType(properties.get(3));
+        this.setTime(Integer.parseInt(properties.get(4)));
+        this.setProtein(Integer.parseInt(properties.get(5)));
+        this.setMeatType(properties.get(6));
+        this.category = properties.get(7);
     }
 
     @Override

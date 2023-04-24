@@ -17,6 +17,10 @@ public class DishSerialize implements Serializable {
     private String name;
     private ArrayList<BaseProduct> productsList;
 
+    public DishSerialize() {
+
+    }
+
     public ArrayList<BaseProduct> getProductsList() {
         return productsList;
     }

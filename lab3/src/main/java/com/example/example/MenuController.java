@@ -73,20 +73,14 @@ public class MenuController {
     }
 
     private BooleanProperty disableIsSelected = new SimpleBooleanProperty(true);
-
+    FileChooser fileChooser = new FileChooser();
 
     public void setDishData(DishDataModel curDishData) {
         this.dishData = curDishData;
         menuTable.setItems(dishData.getDishesList());
     }
     @FXML
-    private void uploadButtonClick() throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Выберите файл");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                new FileChooser.ExtensionFilter("Binary Files", "*.bin"),
-                new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+    private void uploadButtonClick() throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         File file = fileChooser.showOpenDialog((Stage) downloadButton.getScene().getWindow());
         if (file != null) {
             if(file.length() != 0) {
@@ -110,12 +104,6 @@ public class MenuController {
     @FXML
     private void downloadButtonClick() throws IOException, IllegalAccessException {
         if (!menuTable.getItems().isEmpty()) {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Выберите файл");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                    new FileChooser.ExtensionFilter("Binary Files", "*.bin"),
-                    new FileChooser.ExtensionFilter("JSON Files", "*.json"));
             File file = fileChooser.showSaveDialog((Stage) downloadButton.getScene().getWindow());
             if (file != null) {
                 String extension = file.getName().substring(file.getName().lastIndexOf(".") + 1);
@@ -216,7 +204,7 @@ public class MenuController {
             }
         });
         SerializeFactory.initSerializer();
-
+        SerializeFactory.addFilters(fileChooser);
     }
 
 

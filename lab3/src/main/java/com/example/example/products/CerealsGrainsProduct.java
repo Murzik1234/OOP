@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class CerealsGrainsProduct extends BaseProduct implements Serializable {
     private int carb;
@@ -33,16 +34,14 @@ public class CerealsGrainsProduct extends BaseProduct implements Serializable {
 
     }
 
-    public CerealsGrainsProduct(String prop) {
-        StringSplit stringSplit = new StringSplit();
-        String[] properties = stringSplit.split(prop, ',');
-        this.setName(stringSplit.removeSingleBackslashes(properties[1]));
-        this.setWeight(Integer.parseInt(properties[2]));
-        this.setCalories(Integer.parseInt(properties[3]));
-        this.setProcessType(properties[4]);
-        this.setTime(Integer.parseInt(properties[5]));
-        this.carb = Integer.parseInt(properties[6]);
-        this.productType = properties[7];
+    public CerealsGrainsProduct(ArrayList<String> properties) {
+        this.setName(properties.get(0));
+        this.setWeight(Integer.parseInt(properties.get(0)));
+        this.setCalories(Integer.parseInt(properties.get(0)));
+        this.setProcessType(properties.get(0));
+        this.setTime(Integer.parseInt(properties.get(0)));
+        this.carb = Integer.parseInt(properties.get(0));
+        this.productType = properties.get(0);
     }
 
     @Override

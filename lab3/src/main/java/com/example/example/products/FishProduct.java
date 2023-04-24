@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class FishProduct extends BaseProduct implements Serializable {
     private int omega3;
@@ -34,16 +35,14 @@ public class FishProduct extends BaseProduct implements Serializable {
     public FishProduct() {
 
     }
-    public FishProduct(String prop) {
-        StringSplit stringSplit = new StringSplit();
-        String[] properties = stringSplit.split(prop, ',');
-        this.setName(stringSplit.removeSingleBackslashes(properties[1]));
-        this.setWeight(Integer.parseInt(properties[2]));
-        this.setCalories(Integer.parseInt(properties[3]));
-        this.setProcessType(properties[4]);
-        this.setTime(Integer.parseInt(properties[5]));
-        this.omega3 = Integer.parseInt(properties[6]);
-        this.fishArea = properties[7];
+    public FishProduct(ArrayList<String> properties) {
+        this.setName(properties.get(0));
+        this.setWeight(Integer.parseInt(properties.get(1)));
+        this.setCalories(Integer.parseInt(properties.get(2)));
+        this.setProcessType(properties.get(3));
+        this.setTime(Integer.parseInt(properties.get(4)));
+        this.omega3 = Integer.parseInt(properties.get(5));
+        this.fishArea = properties.get(6);
     }
 
     @Override
