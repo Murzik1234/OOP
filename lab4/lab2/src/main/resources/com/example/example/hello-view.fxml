@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane   maxHeight="203.0" maxWidth="375.0" minHeight="203.0" minWidth="375.0" prefHeight="203.0" prefWidth="375.0" style="-fx-background-color: #006c84;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.example.HelloController">
+   <children>
+      <AnchorPane layoutY="52.0" prefHeight="153.0" prefWidth="375.0" style="-fx-background-color: #e2e8e4;">
+         <children>
+            <Button fx:id="enterButton" layoutX="104.0" layoutY="65.0" mnemonicParsing="false" onMouseClicked="#enterClickButton" prefHeight="50.0" prefWidth="167.0" style="-fx-background-color: #f39c63;" text="Начать" textFill="WHITE">
+               <font>
+                  <Font name="Calibri" size="28.0" />
+               </font>
+            </Button>
+            <Label layoutX="27.0" layoutY="33.0" text="Добро пожаловать в CookingTime!" textFill="#838181">
+               <font>
+                  <Font name="Calibri" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="127.0" layoutY="14.0" text="CookingTime" textFill="#6eb5c0d6">
+         <font>
+            <Font name="Calibri" size="23.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
